@@ -121,14 +121,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = os.getenv('STATIC_URL', '/static/')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Adjust this path as needed
+    BASE_DIR / 'static',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise configuration - Use basic storage to avoid manifest issues
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# WhiteNoise configuration for Django 4.2+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
+
+# WhiteNoise settings for better static file serving
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_AUTOREFRESH = True
 
 # Media Files...
 
@@ -169,3 +180,18 @@ LOGGING = {
         },
     },
 }
+
+# Additional settings for debugging static files in production
+import os
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Log static files configuration
+logger.info(f"STATIC_ROOT: {STATIC_ROOT}")
+logger.info(f"STATIC_URL: {STATIC_URL}")
+logger.info(f"STATICFILES_DIRS: {STATICFILES_DIRS}")
+
+# Ensure static files directory exists
+if not os.path.exists(STATIC_ROOT):
+    os.makedirs(STATIC_ROOT, exist_ok=True)

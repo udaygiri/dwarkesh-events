@@ -33,8 +33,8 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/favicon/favicon.ico', permanent=True)),
 ]
 
-# Add media files serving
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Add media files serving for development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# Add static files serving (always enabled for production with WhiteNoise)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Note: Static files are served by WhiteNoise middleware in production
