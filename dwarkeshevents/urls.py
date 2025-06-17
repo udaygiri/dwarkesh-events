@@ -24,10 +24,15 @@ from contact.views import contact_inquiry
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='Home'),    path('about/', views.about, name='About'),
+    path('', views.index, name='Home'),
+    path('about/', views.about, name='About'),
     path('services/', views.services, name='Services'),
     path('gallery/', views.gallery, name='Gallery'),
     path('contact/', views.contact, name='Contact'),
     path('send-form/', contact_inquiry, name='Contact-inquiry'),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon/favicon.ico', permanent=True)),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]
+
+# Add static files serving for production
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
