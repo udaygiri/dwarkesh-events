@@ -4,8 +4,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
     <title>Our Services - Dwarkesh Event Management</title>
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'favicon/apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'favicon/favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'favicon/favicon-16x16.png' %}"
+    />
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+
     <link rel="stylesheet" href="{% static 'services/style.css' %}" />
     <link
       rel="stylesheet"
@@ -189,35 +210,36 @@
                 <li><i class="fas fa-check"></i> Food vendor coordination</li>
               </ul>
               <a href="/contact" class="btn">Inquire Now</a>
-            </div>            
+            </div>
           </div>
 
           <div class="service-item">
             <div class="service-image">
-            <img
-              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-              alt="Other Events"
-            />
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Other Events"
+              />
             </div>
-          <div class="service-content">
-            <div class="service-icon">
-              <i class="fas fa-calendar-alt"></i>
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <h3>Other Special Events</h3>
+              <p>
+                We cater to all types of special occasions with the same
+                dedication and attention to detail:
+              </p>
+              <ul class="service-features">
+                <li><i class="fas fa-check"></i> Anniversary celebrations</li>
+                <li><i class="fas fa-check"></i> Engagement parties</li>
+                <li><i class="fas fa-check"></i> Baby showers</li>
+                <li><i class="fas fa-check"></i> Religious ceremonies</li>
+                <li><i class="fas fa-check"></i> Graduation parties</li>
+                <li><i class="fas fa-check"></i> Cultural events</li>
+              </ul>
+              <a href="/contact" class="btn">Inquire Now</a>
             </div>
-            <h3>Other Special Events</h3>
-            <p>
-              We cater to all types of special occasions with the same dedication and attention to detail:
-            </p>
-            <ul class="service-features">
-              <li><i class="fas fa-check"></i> Anniversary celebrations</li>
-              <li><i class="fas fa-check"></i> Engagement parties</li>
-              <li><i class="fas fa-check"></i> Baby showers</li>
-              <li><i class="fas fa-check"></i> Religious ceremonies</li>
-              <li><i class="fas fa-check"></i> Graduation parties</li>
-              <li><i class="fas fa-check"></i> Cultural events</li>
-            </ul>
-            <a href="/contact" class="btn">Inquire Now</a>
           </div>
-        </div>
         </div>
       </div>
     </section>
@@ -389,12 +411,12 @@
               <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
-          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath, Gujarat, India - 362265"  main_email="dwarkesh.events.management@gmail.com" %}
+          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath,
+          Gujarat, India - 362265"
+          main_email="dwarkesh.events.management@gmail.com" %}
           <div class="footer-section contact">
             <h3>Contact Us</h3>
-            <p>
-              <i class="fas fa-map-marker-alt"></i> {{ Location }}
-            </p>
+            <p><i class="fas fa-map-marker-alt"></i> {{ Location }}</p>
             <p><i class="fas fa-phone"></i> {{ main_phone }}</p>
             <p><i class="fas fa-envelope"></i> {{ main_email }}</p>
           </div>

@@ -4,8 +4,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
     <title>Gallery - Dwarkesh Event Management</title>
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'favicon/apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'favicon/favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'favicon/favicon-16x16.png' %}"
+    />
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
+
     <link rel="stylesheet" href="{% static 'gallery/style.css' %}" />
     <link
       rel="stylesheet"
@@ -119,7 +140,9 @@
               <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
-          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath, Gujarat, India - 362265" main_email="dwarkesh.events.management@gmail.com" %}
+          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath,
+          Gujarat, India - 362265"
+          main_email="dwarkesh.events.management@gmail.com" %}
           <div class="footer-section contact">
             <h3>Contact Us</h3>
             <p><i class="fas fa-map-marker-alt"></i> {{ Location }}</p>

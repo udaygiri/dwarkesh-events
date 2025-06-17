@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import RedirectView
 from . import views
 from contact.views import contact_inquiry
 
@@ -28,4 +29,5 @@ urlpatterns = [
     path('gallery/', views.gallery, name='Gallery'),
     path('contact/', views.contact, name='Contact'),
     path('send-form/', contact_inquiry, name='Contact-inquiry'),
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon/favicon.ico', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
