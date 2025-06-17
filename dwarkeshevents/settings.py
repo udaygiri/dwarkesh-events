@@ -171,8 +171,8 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'level': 'INFO',
-    },    'loggers': {
+        'level': 'INFO',    },
+    'loggers': {
         'django': {
             'handlers': ['console'],
             'level': 'INFO',
@@ -180,18 +180,3 @@ LOGGING = {
         },
     },
 }
-
-# Additional settings for debugging static files in production
-import os
-import logging
-
-logger = logging.getLogger(__name__)
-
-# Log static files configuration
-logger.info(f"STATIC_ROOT: {STATIC_ROOT}")
-logger.info(f"STATIC_URL: {STATIC_URL}")
-logger.info(f"STATICFILES_DIRS: {STATICFILES_DIRS}")
-
-# Ensure static files directory exists
-if not os.path.exists(STATIC_ROOT):
-    os.makedirs(STATIC_ROOT, exist_ok=True)
