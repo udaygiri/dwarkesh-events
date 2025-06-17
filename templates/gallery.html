@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
+    <title>Gallery - Dwarkesh Event Management</title>
+    <link rel="stylesheet" href="{% static 'gallery/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1><a href="/">Dwarkesh Events</a></h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery" class="active">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="overlay"></div>
+      <div class="banner-content">
+        <h1>Our Gallery</h1>
+        <div class="breadcrumb">
+          <a href="/">Home</a> / <span>Gallery</span>
+        </div>
+      </div>
+    </section>
+    <!-- Gallery Introduction -->
+    <section class="gallery-intro">
+      <div class="container">
+        <h2 class="section-title">Memories We've Created</h2>
+        <p class="intro-text">
+          Browse through our collection of beautiful events we've organized over
+          the years. Each image represents a unique story and a special moment
+          that we had the privilege to be a part of.
+        </p>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-grid">
+          <!-- Wedding Gallery Items -->
+          {% for image in images %}
+          <div class="gallery-item wedding">
+            <a
+              href="{{ image.image.url }}"
+              data-lightbox="gallery"
+              data-title="{{ image.title }}"
+            >
+              <img src="{{ image.image.url }}" alt="{{ image.title }}" />
+              <div class="overlay">
+                <div class="overlay-content">
+                  <h3>{{ image.title }}</h3>
+                  <p>{{ image.description }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Create Your Own Memorable Event?</h2>
+        <p>Let's start planning your special day!</p>
+        <a href="/contact" class="btn">Contact Us Today</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section about">
+            <h3>Dwarkesh Events</h3>
+            <p>
+              Your trusted partner for all types of event management. We turn
+              your vision into reality.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/gallery">Gallery</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath, Gujarat, India - 362265" main_email="dwarkesh.events.management@gmail.com" %}
+          <div class="footer-section contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i> {{ Location }}</p>
+            <p><i class="fas fa-phone"></i> {{ main_phone }}</p>
+            <p><i class="fas fa-envelope"></i> {{ main_email }}</p>
+          </div>
+          {% endwith %}
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Dwarkesh Event Management. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Lightbox only
+        const galleryItems = document.querySelectorAll(".gallery-item");
+
+        // Initialize Lightbox
+        lightbox.option({
+          resizeDuration: 200,
+          wrapAround: true,
+          albumLabel: "Image %1 of %2",
+        });
+      });
+    </script>
+  </body>
+</html>

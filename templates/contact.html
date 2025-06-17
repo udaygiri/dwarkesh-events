@@ -1,0 +1,354 @@
+{% load static %}
+
+{% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath, <br />Gujarat, India - 362265" working_hours="Monday - Sunday: 8:00 AM - 10:00 PM" main_email="dwarkesh.events.management<br />@gmail.com" %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
+    <title>Contact Us - Dwarkesh Event Management</title>
+    <link rel="stylesheet" href="{% static '/contact/style.css' %}" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1><a href="/">Dwarkesh Events</a></h1>
+        </div>
+        <nav>
+          <ul>            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact" class="active">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="overlay"></div>
+      <div class="banner-content">
+        <h1>Contact Us</h1>
+        <div class="breadcrumb">
+          <a href="/">Home</a> / <span>Contact</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info">
+      <div class="container">
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Our Location</h3>
+            <p>{{ Location }}</p>
+          </div>
+          <div class="info-card">
+            <div class="icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h3>Phone Number</h3>
+            <p style="cursor: pointer;" onClick="window.location.href='tel:+919106411920'">{{ main_phone }}</p>
+          </div>
+          <div class="info-card">
+            <div class="icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+
+            <h3>Email Address</h3>
+            <p>{{ main_email }}</p>
+          </div>
+          <div class="info-card">
+            <div class="icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Working Hours</h3>
+            <p>{{ working_hours }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+      <div class="container">
+        <div class="form-container">          
+          <div class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>
+              Fill out the form below and we'll get back to you within 24 hours.
+            </p>
+          </div>
+          
+          {% if messages %}
+          <div class="messages">
+              {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+          </div>
+          {% endif %}
+          
+          <form class="contact-form" action= {% url "Contact-inquiry" %} method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  placeholder="Enter subject"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                placeholder="Tell us about your event requirements"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <div class="container">
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29814.972451260935!2d70.3385075643492!3d20.91748664750758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bfd32308996ab5b%3A0xf285471b09bfa777!2sVeraval%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1749837406096!5m2!1sen!2sin" 
+          width="100%"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>How far in advance should I book your services?</h3>
+              <span class="toggle-icon"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                We recommend booking at least 3-6 months in advance for weddings
+                and large corporate events, and 1-2 months for smaller events.
+                However, we also accommodate last-minute bookings based on
+                availability.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What is your payment policy?</h3>
+              <span class="toggle-icon"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                We typically require a 30% deposit to secure your date, with the
+                balance due one week before the event. For larger events, we can
+                arrange a payment plan. We accept bank transfers, credit cards,
+                and cash payments.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>Do you travel to other cities for events?</h3>
+              <span class="toggle-icon"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, we manage events throughout Gujarat and can travel to other
+                states in India. Additional travel and accommodation charges may
+                apply for events outside of Ahmedabad.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What if I need to cancel or reschedule my event?</h3>
+              <span class="toggle-icon"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Our cancellation policy includes a full refund if cancelled 90+
+                days before the event, 50% refund if cancelled 30-89 days
+                before, and no refund if cancelled less than 30 days before.
+                Rescheduling is subject to availability and may incur additional
+                fees.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Make Your Event Special?</h2>
+        <p>Our team is excited to help you create a memorable experience!</p>
+        <a href="#" class="btn scroll-to-form">Contact Us Today</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section about">
+            <h3>Dwarkesh Events</h3>
+            <p>
+              Your trusted partner for all types of event management. We turn
+              your vision into reality.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-section links">
+            <h3>Quick Links</h3>
+            <ul>              <li><a href="/">Home</a></li>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/gallery">Gallery</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          {% with main_phone="+91 9106411920" Location="Veraval, Gir Somnath, Gujarat, India - 362265"  main_email="dwarkesh.events.management@gmail.com" %}
+          <div class="footer-section contact">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> {{ Location }}
+            </p>
+            <p><i class="fas fa-phone"></i> {{ main_phone }}</p>
+            <p><i class="fas fa-envelope"></i> {{ main_email }}</p>
+          </div>
+          {% endwith %}
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Dwarkesh Event Management. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript for FAQ Section -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Auto-dismiss messages after 5 seconds
+        const messages = document.querySelectorAll('.alert');
+        if (messages.length > 0) {
+          setTimeout(function() {
+            messages.forEach(function(message) {
+              message.style.opacity = '0';
+              message.style.transition = 'opacity 0.8s ease';
+              setTimeout(function() {
+                message.style.display = 'none';
+              }, 800);
+            });
+          }, 5000);
+        }
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach((item) => {
+          const question = item.querySelector(".faq-question");
+          const answer = item.querySelector(".faq-answer");
+          const icon = item.querySelector(".toggle-icon i");
+
+          // Initially hide all answers
+          answer.style.display = "none";
+
+          question.addEventListener("click", () => {
+            // Toggle answer visibility
+            if (answer.style.display === "none") {
+              answer.style.display = "block";
+              icon.classList.remove("fa-plus");
+              icon.classList.add("fa-minus");
+              item.classList.add("active");
+            } else {
+              answer.style.display = "none";
+              icon.classList.remove("fa-minus");
+              icon.classList.add("fa-plus");
+              item.classList.remove("active");
+            }
+          });
+        });
+
+        // Scroll to form when button is clicked
+        const scrollButton = document.querySelector(".scroll-to-form");
+        if (scrollButton) {
+          scrollButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            const formSection = document.querySelector(".contact-form-section");
+            formSection.scrollIntoView({ behavior: "smooth" });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
+{% endwith %}
