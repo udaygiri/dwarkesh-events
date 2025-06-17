@@ -33,6 +33,9 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/favicon/favicon.ico', permanent=True)),
 ]
 
-# Add static files serving for production
+# Add media files serving
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Add static files serving for development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
