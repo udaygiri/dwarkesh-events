@@ -161,8 +161,7 @@ LOGGING = {
     'root': {
         'handlers': ['console'],
         'level': 'INFO',
-    },
-    'loggers': {
+    },    'loggers': {
         'django': {
             'handlers': ['console'],
             'level': 'INFO',
@@ -170,8 +169,3 @@ LOGGING = {
         },
     },
 }
-
-# Temporarily enable DEBUG for troubleshooting - REMOVE THIS IN PRODUCTION
-if not DEBUG and os.getenv('RENDER_DEBUG') == 'True':
-    DEBUG = True
-    ALLOWED_HOSTS.append('*')  # Allow all hosts for debugging
