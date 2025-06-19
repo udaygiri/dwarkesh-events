@@ -73,30 +73,32 @@
       <div class="container">
         <div class="gallery-grid">
           <!-- Gallery Items -->
-          {% if images %} {% for image in images %}
-          <div class="gallery-item wedding">
-            <a
-              href="{{ image.image.url }}"
-              data-lightbox="gallery"
-              data-title="{{ image.title }}"
-            >
-              <img src="{{ image.image.url }}" alt="{{ image.title }}" />
-              <div class="overlay">
-                <div class="overlay-content">
-                  <h3>{{ image.title }}</h3>
-                  <p>{{ image.description }}</p>
+          {% if images %} 
+            {% for image in images %}
+            <div class="gallery-item wedding">
+              <a
+                href="{{ image.image.url }}"
+                data-lightbox="gallery"
+                data-title="{{ image.title }}"
+              >
+                <img src="{{ image.image.url }}" alt="{{ image.title }}" />
+                <div class="overlay">
+                  <div class="overlay-content">
+                    <h3>{{ image.title }}</h3>
+                    <p>{{ image.description }}</p>
+                  </div>
                 </div>
-              </div>
-            </a>
-          </div>
-          {% endfor %} {% else %}
-          <div class="no-images">
-            <h3>Gallery Coming Soon</h3>
-            <p>
-              We're working on adding beautiful images to our gallery. Please
-              check back soon!
-            </p>
-          </div>
+              </a>
+            </div>
+            {% endfor %} 
+          {% else %}
+            <div class="no-images">
+              <h3>Gallery Coming Soon</h3>
+              <p>
+                We're working on adding beautiful images to our gallery. Please
+                check back soon!
+              </p>
+            </div>
           {% endif %}
         </div>
       </div>

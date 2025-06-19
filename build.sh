@@ -11,36 +11,53 @@ mkdir -p staticfiles
 # Collect static files
 python manage.py collectstatic --no-input --clear
 
-# Apply database migrations with verbose output
-echo "Applying database migrations..."
-python manage.py migrate --verbosity=2
+# Apply database migrations with error handling
+echo "=== DATABASE SETUP ==="
+echo "Initializing database..."
 
-# Show database tables to verify migration
-echo "Checking database tables..."
-python manage.py shell -c "from django.db import connection; cursor = connection.cursor(); cursor.execute('SELECT name FROM sqlite_master WHERE type=\"table\";'); print([row[0] for row in cursor.fetchall()])"
+# Use our custom database initialization command
+python manage.py init_database
 
-# Populate gallery with sample data
-echo "Populating gallery with sample data..."
-python manage.py populate_gallery
+echo "Verifying database setup..."
+python manage.py showmigrations gallery
 
 # Create superuser if specified in environment variables
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] && [ -n "$DJANGO_SUPERUSER_EMAIL" ]; then
+    echo "=== CREATING SUPERUSER ==="
     python manage.py createsuperuser --noinput
 fi
 
-# Final verification - checking gallery table and data...
+# Add environment info for debugging
+echo "=== ENVIRONMENT INFO ==="
+echo "Python version: $(python --version)"
+echo "Django version: $(python -c 'import django; print(django.get_version())')"
+echo "Working directory: $(pwd)"
+echo "Database file location: $(python -c 'from django.conf import settings; print(settings.DATABASES[\"default\"][\"NAME\"])')"
+
+echo "=== BUILD COMPLETE ==="
+echo "Gallery setup verification complete!"
+
+# Final comprehensive test
+echo "=== FINAL SYSTEM TEST ==="
 python manage.py shell -c "
-from gallery.models import Gallery
-import traceback
+print('Testing gallery functionality...')
 try:
+    from gallery.models import Gallery
+    from django.urls import reverse
+    from django.test import Client
+    
+    # Test model access
     count = Gallery.objects.count()
-    print(f'Gallery table exists with {count} items')
-    if count > 0:
-        first_item = Gallery.objects.first()
-        print(f'First item: {first_item.title}')
-    else:
-        print('No gallery items found - this may cause template errors')
+    print(f'✓ Gallery model works: {count} items')
+    
+    # Test if we can import the view
+    from dwarkeshevents.views import gallery
+    print('✓ Gallery view import successful')
+    
+    print('Database initialization complete and verified!')
+    
 except Exception as e:
-    print(f'Error accessing gallery table: {e}')
+    print(f'✗ Final test failed: {e}')
+    import traceback
     traceback.print_exc()
 "
