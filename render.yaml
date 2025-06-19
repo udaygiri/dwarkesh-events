@@ -1,21 +1,27 @@
+databases:
+  - name: dwarkeshevents-db
+    plan: free
+    databaseName: dwarkeshevents
+    user: dwarkeshevents_user
+
 services:
   - type: web
-    name: dwarkesh-events
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn dwarkeshevents.wsgi:application --bind 0.0.0.0:$PORT"
     plan: free
-    branch: main
-    healthCheckPath: "/"
+    name: dwarkesh-events
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn dwarkeshevents.wsgi:application --bind 0.0.0.0:$PORT'
     envVars:
-      - key: DEBUG
-        value: "False"
-      - key: SECRET_KEY
-        generateValue: true
       - key: DATABASE_URL
         fromDatabase:
           name: dwarkeshevents-db
           property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DEBUG
+        value: "False"
       - key: STATIC_URL
         value: "/static/"
       - key: MEDIA_URL
@@ -32,14 +38,6 @@ services:
         value: ""  # Set this in Render dashboard
       - key: DEFAULT_FROM_EMAIL
         value: ""  # Set this in Render dashboard
-
-  - type: pserv
-    name: dwarkeshevents-db
-    env: postgres
-    plan: free
-    databaseName: dwarkeshevents
-    databaseUser: dwarkeshevents_user
-    region: oregon
 
 # Optional: Static site for serving media files (if needed)
 # Note: Render's web service can serve static files via WhiteNoise

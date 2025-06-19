@@ -16,7 +16,12 @@ def services(req):
 
 def gallery(req):
     images = Gallery.objects.all()
-    return render(req, 'gallery.html', {'images' : images})
+    if images:
+
+        return render(req, 'gallery.html', {'images' : images})
+    else:
+        is_empty = True
+        return render(req, 'gallery.html', {'is_empty': is_empty})
 
 
 def contact(req):

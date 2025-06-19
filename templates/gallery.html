@@ -4,7 +4,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'favicon/favicon.ico' %}"
+    />
     <title>Gallery - Dwarkesh Event Management</title>
     <link rel="stylesheet" href="{% static 'gallery/style.css' %}" />
     <link
@@ -60,6 +64,19 @@
     <!-- Gallery Grid -->
     <section class="gallery-section">
       <div class="container">
+        {% if is_empty %}
+        <!-- Empty Gallery Message -->
+        <div class="empty-gallery">
+          <div class="empty-content">
+            <h3>Gallery Coming Soon</h3>
+            <p>
+              We're currently updating our gallery with amazing photos from
+              recent events. Please check back soon to see our latest work!
+            </p>
+          </div>
+        </div>
+        {% else %}
+        <!-- Gallery Grid with Images -->
         <div class="gallery-grid">
           <!-- Wedding Gallery Items -->
           {% for image in images %}
@@ -80,6 +97,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endif %}
       </div>
     </section>
 
