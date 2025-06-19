@@ -33,8 +33,9 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/favicon/favicon.ico', permanent=True)),
 ]
 
-# Add media files serving for development
+# Add media and static files serving for development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# Note: Static files are served by WhiteNoise middleware in production
+    # Serve static files from STATICFILES_DIRS during development
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()

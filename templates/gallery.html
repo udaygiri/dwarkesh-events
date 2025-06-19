@@ -4,20 +4,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}"/>
     <title>Gallery - Dwarkesh Event Management</title>
-
-    <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      href="{% static 'favicon/favicon.ico' %}"
-      type="image/x-icon"
-    />
-    <link
-      rel="icon"
-      href="{% static 'favicon/favicon.ico' %}"
-      type="image/x-icon"
-    />
-
     <link rel="stylesheet" href="{% static 'gallery/style.css' %}" />
     <link
       rel="stylesheet"
@@ -68,38 +56,29 @@
         </p>
       </div>
     </section>
+
     <!-- Gallery Grid -->
     <section class="gallery-section">
       <div class="container">
         <div class="gallery-grid">
-          <!-- Gallery Items -->
-          {% if images %} 
-            {% for image in images %}
-            <div class="gallery-item wedding">
-              <a
-                href="{{ image.image.url }}"
-                data-lightbox="gallery"
-                data-title="{{ image.title }}"
-              >
-                <img src="{{ image.image.url }}" alt="{{ image.title }}" />
-                <div class="overlay">
-                  <div class="overlay-content">
-                    <h3>{{ image.title }}</h3>
-                    <p>{{ image.description }}</p>
-                  </div>
+          <!-- Wedding Gallery Items -->
+          {% for image in images %}
+          <div class="gallery-item wedding">
+            <a
+              href="{{ image.image.url }}"
+              data-lightbox="gallery"
+              data-title="{{ image.title }}"
+            >
+              <img src="{{ image.image.url }}" alt="{{ image.title }}" />
+              <div class="overlay">
+                <div class="overlay-content">
+                  <h3>{{ image.title }}</h3>
+                  <p>{{ image.description }}</p>
                 </div>
-              </a>
-            </div>
-            {% endfor %} 
-          {% else %}
-            <div class="no-images">
-              <h3>Gallery Coming Soon</h3>
-              <p>
-                We're working on adding beautiful images to our gallery. Please
-                check back soon!
-              </p>
-            </div>
-          {% endif %}
+              </div>
+            </a>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </section>

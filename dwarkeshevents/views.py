@@ -15,26 +15,8 @@ def services(req):
 
 
 def gallery(req):
-    images = []
-    try:
-        # Check if table exists first
-        from django.db import connection
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='gallery_gallery';")
-            if cursor.fetchone():
-                from gallery.models import Gallery
-                images = Gallery.objects.all()
-                print(f"Gallery loaded successfully: {len(images)} items")
-            else:
-                print("Gallery table does not exist")
-    except Exception as e:
-        # Log the error and continue with empty list
-        print(f"Gallery database error: {e}")
-        import traceback
-        traceback.print_exc()
-        images = []
-    
-    return render(req, 'gallery.html', {'images': images})
+    images = Gallery.objects.all()
+    return render(req, 'gallery.html', {'images' : images})
 
 
 def contact(req):
