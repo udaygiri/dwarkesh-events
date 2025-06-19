@@ -15,8 +15,13 @@ def services(req):
 
 
 def gallery(req):
-    images = Gallery.objects.all()
-    return render(req, 'gallery.html', {'images' : images})
+    try:
+        images = Gallery.objects.all()
+    except Exception as e:
+        # Log the error and return empty list
+        print(f"Gallery database error: {e}")
+        images = []
+    return render(req, 'gallery.html', {'images': images})
 
 
 def contact(req):
