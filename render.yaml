@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: dwarkesh-events
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn dwarkeshevents.wsgi:application --bind 0.0.0.0:$PORT"
+    plan: free
+    branch: main
+    healthCheckPath: "/"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dwarkeshevents-db
+          property: connectionString
+      - key: STATIC_URL
+        value: "/static/"
+      - key: MEDIA_URL
+        value: "/media/"
+      - key: EMAIL_HOST
+        value: "smtp.gmail.com"
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USE_TLS
+        value: "True"
+      - key: EMAIL_HOST_USER
+        value: ""  # Set this in Render dashboard
+      - key: EMAIL_HOST_PASSWORD
+        value: ""  # Set this in Render dashboard
+      - key: DEFAULT_FROM_EMAIL
+        value: ""  # Set this in Render dashboard
+
+  - type: pserv
+    name: dwarkeshevents-db
+    env: postgres
+    plan: free
+    databaseName: dwarkeshevents
+    databaseUser: dwarkeshevents_user
+    region: oregon
+
+# Optional: Static site for serving media files (if needed)
+# Note: Render's web service can serve static files via WhiteNoise
+# But if you need a separate static file service, uncomment below:
+
+# - type: static
+#   name: dwarkesh-events-static
+#   buildCommand: "python manage.py collectstatic --noinput"
+#   staticPublishPath: "./staticfiles"
+#   routes:
+#     - type: rewrite
+#       source: "/static/*"
+#       destination: "/*"
