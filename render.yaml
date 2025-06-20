@@ -25,8 +25,8 @@ services:
       - key: EMAIL_USE_TLS
         value: "True"
       - key: EMAIL_HOST_USER
-        value: ""  # Set this in Render dashboard
+        value: "dwarkesh.events.management@gmail.com"  # Set this in Render dashboard
       - key: EMAIL_HOST_PASSWORD
         value: ""  # Set this in Render dashboard
       - key: DEFAULT_FROM_EMAIL
-        value: ""  # Set this in Render dashboard
+        value: "dwarkesh.events.management@gmail.com"  # Set this in Render dashboard
