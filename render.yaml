@@ -7,7 +7,7 @@ services:
     startCommand: 'python -m gunicorn dwarkeshevents.wsgi:application --bind 0.0.0.0:$PORT'
     envVars:
       - key: DATABASE_URL
-        value: ""  # Set this in Render dashboard
+        value: "postgresql://dwarkeshevents_7qnl_user:EppEgjLSEdbIO05YmyR0Xs7YdNJTQwwf@dpg-d1agngbipnbc73a3qt30-a/dwarkeshevents_7qnl"  # Set this in Render dashboard
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
@@ -27,6 +27,6 @@ services:
       - key: EMAIL_HOST_USER
         value: "dwarkesh.events.management@gmail.com"  # Set this in Render dashboard
       - key: EMAIL_HOST_PASSWORD
-        value: ""  # Set this in Render dashboard
+        value: "vdwkhjhryrtlmitk"  # Set this in Render dashboard
       - key: DEFAULT_FROM_EMAIL
         value: "dwarkesh.events.management@gmail.com"  # Set this in Render dashboard
