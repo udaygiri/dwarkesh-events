@@ -155,9 +155,9 @@ STORAGES = {
 }
 
 # Media Files...
-
+# Note: Using Cloudinary for media storage, so MEDIA_ROOT is not needed
 MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Not needed with Cloudinary
 
 # Cloudinary Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
