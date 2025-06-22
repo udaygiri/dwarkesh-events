@@ -14,6 +14,11 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+from cloudinary.storage import MediaCloudinaryStorage
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -25,12 +30,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v864642e6ttk78e%nr69e-owm)*5_t3w3s2!#+gw!@_yrvig$h')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'  # Handle both string and bool
 
-ALLOWED_HOSTS = ['dwarkesh-events.onrender.com', 'localhost', '127.0.0.1']
+# Use appropriate ALLOWED_HOSTS based on DEBUG mode
+if DEBUG:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = [
+        'dwarkesh-events.onrender.com',
+        # Add other production hosts here
+    ]
 
 
 # Application definition
@@ -41,11 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',    
     'gallery',  # Your custom app for managing events
     'contact',  # Your custom app for handling contact forms
     'cloudinary',
-    'cloudinary_storage',
     'storages',
 ]
 
@@ -162,11 +173,13 @@ MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
 # Cloudinary Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
-}
+# Cloudinary settings
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+    api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+    secure=True
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
