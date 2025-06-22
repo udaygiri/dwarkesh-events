@@ -14,9 +14,16 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+
+# Try to import cloudinary - handle gracefully if not available during build
+try:
+    import cloudinary
+    import cloudinary.uploader
+    import cloudinary.api
+    CLOUDINARY_AVAILABLE = True
+except ImportError:
+    print("Warning: Cloudinary not available during build")
+    CLOUDINARY_AVAILABLE = False
 
 
 load_dotenv()  # Load environment variables from .env file
@@ -56,10 +63,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'gallery',  # Your custom app for managing events
     'contact',  # Your custom app for handling contact forms
-    'cloudinary',
-    'cloudinary_storage',
-    'storages',
 ]
+
+# Add cloudinary apps only if available
+if CLOUDINARY_AVAILABLE:
+    INSTALLED_APPS += [
+        'cloudinary',
+        'cloudinary_storage',
+        'storages',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -169,23 +181,27 @@ STORAGES = {
 # Media Files (for Cloudinary)
 MEDIA_URL = '/media/'
 
-# Cloudinary Configuration
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# Cloudinary settings for django-cloudinary-storage
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
-}
-
-# Basic cloudinary config (for API usage)
-cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
-    api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
-    secure=True
-)
+# Cloudinary Configuration - only if available
+if CLOUDINARY_AVAILABLE:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    
+    # Cloudinary settings for django-cloudinary-storage
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+        'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+    }
+    
+    # Basic cloudinary config (for API usage)
+    cloudinary.config(
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+        api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+        secure=True
+    )
+else:
+    # Fallback to filesystem storage during build
+    print("Using filesystem storage (Cloudinary not available)")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

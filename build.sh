@@ -36,6 +36,36 @@ echo "|"
 echo "|"
 echo "V"
 
+# Test Django settings import
+echo "==========Testing Django settings import=========="
+python -c "
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dwarkeshevents.settings')
+import django
+django.setup()
+from django.conf import settings
+print(f'SECRET_KEY configured: {bool(settings.SECRET_KEY)}')
+print(f'DEBUG: {settings.DEBUG}')
+print(f'ALLOWED_HOSTS: {settings.ALLOWED_HOSTS}')
+print('Settings imported successfully')
+"
+echo "==========Django settings tested=========="
+
+echo "|"
+echo "|"
+echo "|"
+echo "V"
+
+# Check available management commands
+echo "==========Checking available commands=========="
+python manage.py help
+echo "==========Available commands listed=========="
+
+echo "|"
+echo "|"
+echo "|"
+echo "V"
+
 # Check if manage.py exists and is executable
 echo "==========Checking manage.py=========="
 ls -la manage.py
