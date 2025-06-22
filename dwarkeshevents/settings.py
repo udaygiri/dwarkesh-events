@@ -14,7 +14,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
-from cloudinary.storage import MediaCloudinaryStorage
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -33,16 +32,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v864642e6ttk78e%nr69e-owm)*5_t3w3s2!#+gw!@_yrvig$h')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'  # Handle both string and bool
+# SECURITY WARNING: don't run with debug turned on in production!
+# Read DEBUG from environment or default to True for local development
+DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string and boolean values
 
 # Use appropriate ALLOWED_HOSTS based on DEBUG mode
+# For development only (temporary solution)
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = [
-        'dwarkesh-events.onrender.com',
-        # Add other production hosts here
-    ]
+    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com']  # Replace with your actual production domain
+  # Allows all hosts (unsafe for production!)
 
 
 # Application definition
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'gallery',  # Your custom app for managing events
     'contact',  # Your custom app for handling contact forms
     'cloudinary',
+    'cloudinary_storage',
     'storages',
 ]
 
@@ -165,15 +166,20 @@ STORAGES = {
     },
 }
 
-# Media Files...
-# Note: Using Cloudinary for media storage, so MEDIA_ROOT is not needed
-MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Not needed with Cloudinary
+# Media Files (for Cloudinary)
+MEDIA_URL = '/media/'
 
 # Cloudinary Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Cloudinary settings
+# Cloudinary settings for django-cloudinary-storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+}
+
+# Basic cloudinary config (for API usage)
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
     api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
