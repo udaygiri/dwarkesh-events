@@ -6,6 +6,8 @@ services:
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn dwarkeshevents.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: "dwarkeshevents.settings"
       - key: DATABASE_URL
         value: "postgresql://dwarkeshevents_7qnl_user:EppEgjLSEdbIO05YmyR0Xs7YdNJTQwwf@dpg-d1agngbipnbc73a3qt30-a/dwarkeshevents_7qnl" # Set this in Render dashboard
       - key: SECRET_KEY
