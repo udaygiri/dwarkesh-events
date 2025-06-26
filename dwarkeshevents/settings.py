@@ -183,7 +183,7 @@ MEDIA_URL = '/media/'
 
 # Cloudinary Configuration - only if available
 if CLOUDINARY_AVAILABLE:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     
     # Cloudinary settings for django-cloudinary-storage
     CLOUDINARY_STORAGE = {
