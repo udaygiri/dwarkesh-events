@@ -59,7 +59,7 @@ A Django-based web application for managing events, gallery, and services for Dw
 
 ## 📱 Screenshots
 
-_Coming soon!_
+![Dearkesh Events Website Screenshot](image.png)
 
 ## 👥 Contributing
 
