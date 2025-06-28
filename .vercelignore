@@ -1,0 +1,63 @@
+# Vercel ignore file
+
+**pycache**/
+_.pyc
+_.pyo
+_.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage._
+.cache
+nosetests.xml
+coverage.xml
+_.cover
+_.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Django
+
+\*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Static files
+
+/static/
+/staticfiles/
+/staticfiles_build/
+
+# Media files
+
+/media/
+
+# Environment variables
+
+.env
+
+# IDE
+
+.vscode/
+.idea/
+_.swp
+_.swo
+\*~
+
+# OS
+
+.DS*Store
+.DS_Store?
+.*\*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

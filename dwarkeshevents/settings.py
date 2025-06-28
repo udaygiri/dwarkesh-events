@@ -48,7 +48,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string an
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com']  # Replace with your actual production domain
+    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com', '.vercel.app', '.now.sh']  # Added Vercel domains
   # Allows all hosts (unsafe for production!)
 
 
@@ -216,3 +216,35 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your Gmail address
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Create an app password in your Google account
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+# ======================================
+# Vercel-specific Configuration
+# ======================================
+
+# Detect if running on Vercel
+VERCEL_ENV = os.environ.get('VERCEL_ENV')
+
+if VERCEL_ENV:
+    # Production settings for Vercel
+    DEBUG = False
+    ALLOWED_HOSTS.extend(['.vercel.app', '.now.sh'])
+    
+    # Static files configuration for Vercel
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    # Use environment database URL if provided, otherwise fallback to SQLite
+    if os.environ.get('DATABASE_URL'):
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=os.environ.get('DATABASE_URL'),
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
+    
+    # Ensure Cloudinary is used for media files in production
+    if CLOUDINARY_AVAILABLE:
+        print("Using Cloudinary for media storage on Vercel")
+    else:
+        print("Warning: Cloudinary not available on Vercel")
