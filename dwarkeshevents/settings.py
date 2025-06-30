@@ -216,3 +216,22 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your Gmail address
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Create an app password in your Google account
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+# ======================================
+# Iframe Embedding Configuration
+# ======================================
+
+# Allow iframe embedding from any website
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+# Alternative method: Remove X-Frame-Options header entirely
+# Comment out the line above and uncomment the lines below if needed
+# SECURE_FRAME_DENY = False
+# X_FRAME_OPTIONS = None
+
+# Content Security Policy for iframe embedding
+# This allows your site to be embedded in iframes from any origin
+CSP_FRAME_ANCESTORS = ["'*'"]
+
+# Additional security headers for iframe embedding
+SECURE_CONTENT_TYPE_NOSNIFF = False  # Allow content type sniffing for better iframe compatibility
