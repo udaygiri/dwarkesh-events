@@ -44,12 +44,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v864642e6ttk78e%nr69e-owm)
 DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string and boolean values
 
 # Use appropriate ALLOWED_HOSTS based on DEBUG mode
-# For development only (temporary solution)
 if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 else:
-    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com']  # Replace with your actual production domain
-  # Allows all hosts (unsafe for production!)
+    ALLOWED_HOSTS = ['.fly.dev', '.fly.io']  # Allow Fly.io domains
 
 
 # Application definition
@@ -109,7 +107,7 @@ WSGI_APPLICATION = 'dwarkeshevents.wsgi.application'
 
 # Use PostgreSQL for production, SQLite for development
 if os.getenv('DATABASE_URL'):
-    # Production database (PostgreSQL on Render)
+    # Production database (PostgreSQL)
     DATABASES = {
         'default': dj_database_url.config(
             default=os.getenv('DATABASE_URL'),
@@ -183,20 +181,18 @@ MEDIA_URL = '/media/'
 
 # Cloudinary Configuration - only if available
 if CLOUDINARY_AVAILABLE:
-    # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    
     # Cloudinary settings for django-cloudinary-storage
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
-        'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
-        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
     }
     
     # Basic cloudinary config (for API usage)
     cloudinary.config(
-        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
-        api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
-        api_secret=os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+        api_key=os.getenv('CLOUDINARY_API_KEY'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET'),
         secure=True
     )
 else:
@@ -210,7 +206,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')  # Default to Gmail SMTP
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your Gmail address

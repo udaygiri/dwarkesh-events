@@ -1,0 +1,33 @@
+# Fly app configuration file generated for dwarkesh-events
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = 'dwarkesh-events'
+primary_region = 'iad'
+
+[build]
+
+[env]
+  DJANGO_SETTINGS_MODULE = "dwarkeshevents.settings"
+  DEBUG = "False"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[statics]]
+  guest_path = "/app/staticfiles"
+  url_prefix = "/static/"
