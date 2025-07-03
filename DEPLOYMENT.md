@@ -11,19 +11,23 @@ This Django application is configured for deployment on Fly.io.
 ## Deployment Steps
 
 ### 1. Add Payment Information
+
 Visit https://fly.io/dashboard/dwarkesheventes/billing and add a credit card.
 
 ### 2. Create PostgreSQL Database
+
 ```powershell
 C:\Users\BAPU\.fly\bin\flyctl.exe postgres create --name dwarkesh-events-db --region iad
 ```
 
 ### 3. Launch the App
+
 ```powershell
 C:\Users\BAPU\.fly\bin\flyctl.exe launch --no-deploy
 ```
 
 ### 4. Set Environment Variables
+
 ```powershell
 # Generate and set a secret key
 C:\Users\BAPU\.fly\bin\flyctl.exe secrets set SECRET_KEY="your-generated-secret-key"
@@ -44,16 +48,19 @@ C:\Users\BAPU\.fly\bin\flyctl.exe secrets set CLOUDINARY_API_SECRET="your-api-se
 ```
 
 ### 5. Deploy
+
 ```powershell
 C:\Users\BAPU\.fly\bin\flyctl.exe deploy
 ```
 
 ### 6. Run Migrations
+
 ```powershell
 C:\Users\BAPU\.fly\bin\flyctl.exe ssh console -C "python manage.py migrate"
 ```
 
 ### 7. Create Superuser (Optional)
+
 ```powershell
 C:\Users\BAPU\.fly\bin\flyctl.exe ssh console -C "python manage.py createsuperuser"
 ```
@@ -63,11 +70,13 @@ C:\Users\BAPU\.fly\bin\flyctl.exe ssh console -C "python manage.py createsuperus
 You can also use the automated deployment script:
 
 **Windows:**
+
 ```powershell
 .\deploy.bat
 ```
 
 **Linux/Mac:**
+
 ```bash
 chmod +x deploy.sh
 ./deploy.sh
