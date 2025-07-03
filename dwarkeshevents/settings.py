@@ -45,9 +45,9 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string an
 
 # Use appropriate ALLOWED_HOSTS based on DEBUG mode
 if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 else:
-    ALLOWED_HOSTS = []  # Configure for your production environment
+    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com', '.onrender.com']  # Render.com domains
 
 
 # Application definition
@@ -183,16 +183,16 @@ MEDIA_URL = '/media/'
 if CLOUDINARY_AVAILABLE:
     # Cloudinary settings for django-cloudinary-storage
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+        'API_KEY': os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
     }
     
     # Basic cloudinary config (for API usage)
     cloudinary.config(
-        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
-        api_key=os.getenv('CLOUDINARY_API_KEY'),
-        api_secret=os.getenv('CLOUDINARY_API_SECRET'),
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dqkgzzmkr'),
+        api_key=os.getenv('CLOUDINARY_API_KEY', '762694757195965'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET', 'scbWa9j0BuvZsU2SEOTBYQIfpBo'),
         secure=True
     )
 else:
@@ -209,9 +209,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your Gmail address
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Create an app password in your Google account
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'dwarkesh.events.management@gmail.com')  # Default for Render
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'vdwkhjhryrtlmitk')  # Default for Render  
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'dwarkesh.events.management@gmail.com')  # Default for Render
 
 # ======================================
 # Iframe Embedding Configuration
