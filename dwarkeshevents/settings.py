@@ -45,9 +45,9 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string an
 
 # Use appropriate ALLOWED_HOSTS based on DEBUG mode
 if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = ['.fly.dev', '.fly.io']  # Allow Fly.io domains
+    ALLOWED_HOSTS = []  # Configure for your production environment
 
 
 # Application definition
