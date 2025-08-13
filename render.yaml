@@ -9,7 +9,7 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: "dwarkeshevents.settings"
       - key: DATABASE_URL
-        value: "postgresql://dwarkeshevents_7qnl_user:EppEgjLSEdbIO05YmyR0Xs7YdNJTQwwf@dpg-d1agngbipnbc73a3qt30-a/dwarkeshevents_7qnl" # Set this in Render dashboard
+        value: "postgresql://dwarkesh_events_user:QEW558gsCTxLHLkX9xydUTn2pNEjdDJI@dpg-d2eaq8buibrs73fpoue0-a/dwarkesh_events" # Set this in Render dashboard
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
