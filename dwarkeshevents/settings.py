@@ -43,12 +43,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-v864642e6ttk78e%nr69e-owm)
 # Read DEBUG from environment or default to True for local development
 DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Correctly handles both string and boolean values
 
-# Use appropriate ALLOWED_HOSTS based on DEBUG mode
-if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
-else:
-    ALLOWED_HOSTS = ['dwarkesh-events.onrender.com', '.onrender.com']  # Render.com domains
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0,dwarkesh-events.onrender.com,.onrender.com').split(',')
 
 # Application definition
 
